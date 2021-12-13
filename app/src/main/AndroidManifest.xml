@@ -13,9 +13,11 @@
         android:theme="@style/Theme.ApiApp">
         <activity
             android:name=".FilterActivity"
-            android:exported="true" />
+            android:parentActivityName="MainActivity"
+            android:exported="false" />
         <activity
             android:name=".DetailActivity"
+            android:parentActivityName="MainActivity"
             android:exported="true" />
         <activity
             android:name=".MainActivity"

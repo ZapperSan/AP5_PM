@@ -2,6 +2,7 @@ package cz.utb.fai.apiapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,7 +20,6 @@ import org.json.JSONObject;
 
 public class DetailActivity extends AppCompatActivity {
 
-    TextView title;
     TextView level;
     TextView range;
     TextView castTime;
@@ -57,10 +57,13 @@ public class DetailActivity extends AppCompatActivity {
         spell = (TextView) findViewById(R.id.spell);
         castTime = (TextView) findViewById(R.id.castTime);
 
-
-
         getDetail();
+    }
 
+    public void backToMain(View v)
+    {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
     public void getDetail()

@@ -1,5 +1,21 @@
 <resources>
     <string name="app_name">ApiApp</string>
     <string name="hint_translation">Text for translation &#8230;</string>
-    <string name="label_button_translate">TRANSLATE</string>
+    <string name="main_title">Main</string>
+    <string name="filter_title">Filter</string>
+    <string name="detail_title">Detail</string>
+    <string name="action_filter">FILTER</string>
+    <string name="action_settings">SETTINGS</string>
+
+    //Filters
+    <string name="spell_name">Spell name</string>
+    <string name="spell_level">Level</string>
+    <string name="spell_school">School</string>
+    <string name="spell_range">Min.Range</string>
+    <string name="spell_class">Class</string>
+    <string name="spell_sort">Sort by</string>
+    <string name="spell_asc">Ascending</string>
+    <string name="spell_desc">Descending</string>
+    <string name="spell_ritual">Is Ritual</string>
+    <string name="spell_concentration">Needs Concentration</string>
 </resources>

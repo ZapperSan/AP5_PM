@@ -1,10 +1,21 @@
 package cz.utb.fai.apiapp;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.ActionMenuItemView;
+import androidx.appcompat.view.menu.MenuView;
+import androidx.appcompat.widget.ActionMenuView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.MenuCompat;
+import androidx.core.view.MenuItemCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,79 +30,45 @@ import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView textView;
-    EditText editText;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        textView = (TextView) findViewById(R.id.translated_text);
-        editText = (EditText) findViewById(R.id.text_for_translation);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.topToolbar);
+        setSupportActionBar(toolbar);
+
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.top_app_bar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_filter:
+
+                Intent intent = new Intent(this, FilterActivity.class);
+                startActivity(intent);
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
+
+
 
     public void startDetail(View v)
     {
         Intent intent = new Intent(this, DetailActivity.class);
         startActivity(intent);
-    }
-
-    public void getTranslationOnClick(View v)
-    {
-        // Instantiate the RequestQueue.
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="https://api.mymemory.translated.net/get?q=" + editText.getText().toString() + "&langpair=en|cs";
-
-        // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>()
-                {
-                    @Override
-                    public void onResponse(String response)
-                    {
-                        // ZPRACOVANI JSONu:
-                        try
-                        {
-                            //1. Z DAT, KTERA JSME OBDRZELI VYTVORIME JSONObject
-                            JSONObject jsonObject = new JSONObject(response);
-
-                            // 2. Z PROMENNE jsonObject ZISKAME "responseData" (viz struktura JSONu odpovedi)
-                            JSONObject responseData = jsonObject.getJSONObject("responseData");
-
-                            // 3. Z PROMENNE responseData ZISKAME "translatedText" (viz struktura JSONu odpovedi)
-                            // V PROMENNE translatedText JE ULOZEN VYSLEDEK PREKLADU
-                            String translatedText = responseData.getString("translatedText");
-
-                            // 4. V textView ZOBRAZIME VYSLEDEK PREKLADU
-                            textView.setText(editText.getText().toString() + " --> " + translatedText);
-                        }
-                        catch (JSONException e)
-                        {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener()
-                {
-                    @Override
-                    public void onErrorResponse(VolleyError error)
-                    {
-                        if(error.networkResponse.statusCode == 429)
-                        {
-                            Toast toast= Toast.makeText(getApplicationContext(),
-                                    "You used all available free translations for today. Try again later...",Toast.LENGTH_LONG);
-                            toast.show();
-                        }
-                        else
-                        {
-                            textView.setText("That didn't work!");
-                        }
-
-                    }
-                });
-
-        // Add the request to the RequestQueue.
-        queue.add(stringRequest);
     }
 }
