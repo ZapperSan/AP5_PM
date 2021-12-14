@@ -1,11 +1,13 @@
 <resources>
     <string name="app_name">ApiApp</string>
-    <string name="hint_translation">Text for translation &#8230;</string>
-    <string name="main_title">Main</string>
-    <string name="filter_title">Filter</string>
+    <string name="main_title">Open5e - SpellList</string>
+    <string name="filter_title">Filters</string>
     <string name="detail_title">Detail</string>
-    <string name="action_filter">FILTER</string>
-    <string name="action_settings">SETTINGS</string>
+
+    //TopBar
+    <string name="action_filter">Filters</string>
+    <string name="action_clear">Clear filters</string>
+    <string name="action_sync">Synchronize with API</string>
 
     //Filters
     <string name="spell_name">Spell name</string>

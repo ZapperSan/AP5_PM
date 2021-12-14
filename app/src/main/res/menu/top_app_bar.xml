@@ -5,12 +5,15 @@
 
     <item
         android:id="@+id/action_filter"
-        android:icon="@drawable/ic_search_black_24dp"
+        android:icon="@drawable/ic_search_white_24dp"
         android:title="@string/action_filter"
         app:showAsAction="ifRoom"/>
 
     <!-- Settings, should always be in the overflow -->
-    <item android:id="@+id/action_settings"
-        android:title="@string/action_settings"
+    <item android:id="@+id/action_clear"
+        android:title="@string/action_clear"
+        app:showAsAction="never"/>
+    <item android:id="@+id/action_sync"
+        android:title="@string/action_sync"
         app:showAsAction="never"/>
 </menu>
