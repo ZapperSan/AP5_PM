@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,11 +53,64 @@ public class MainRecyclerView extends RecyclerView.Adapter<MainRecyclerView.View
         {
             JSONObject spell = mData.getJSONObject(position);
             String cardTitle = spell.getString("name");
-            String cardClass = spell.getString("dnd_class");
             String cardLevel = spell.getString("level");
             holder.cardTitle.setText(cardTitle);
-            holder.cardClass.setText(cardClass);
             holder.cardLevel.setText(cardLevel);
+
+            if(spell.getString("dnd_class").contains("Bard"))
+            {
+                ImageView image = new ImageView(context);
+                image.setBackgroundResource(R.drawable.ic_class_bard);
+                holder.classIconsLayout.addView(image);
+            }
+            if(spell.getString("dnd_class").contains("Cleric"))
+            {
+                ImageView image = new ImageView(context);
+                image.setBackgroundResource(R.drawable.ic_class_cleric);
+                holder.classIconsLayout.addView(image);
+            }
+            if(spell.getString("dnd_class").contains("Druid"))
+            {
+                ImageView image = new ImageView(context);
+                image.setBackgroundResource(R.drawable.ic_class_druid);
+                holder.classIconsLayout.addView(image);
+            }
+            if(spell.getString("dnd_class").contains("Paladin"))
+            {
+                ImageView image = new ImageView(context);
+                image.setBackgroundResource(R.drawable.ic_class_paladin);
+                holder.classIconsLayout.addView(image);
+            }
+            if(spell.getString("dnd_class").contains("Ranger"))
+            {
+                ImageView image = new ImageView(context);
+                image.setBackgroundResource(R.drawable.ic_class_ranger);
+                holder.classIconsLayout.addView(image);
+            }
+            if(spell.getString("dnd_class").contains("Ritual"))
+            {
+                ImageView image = new ImageView(context);
+                image.setBackgroundResource(R.drawable.ic_class_ritual);
+                holder.classIconsLayout.addView(image);
+            }
+            if(spell.getString("dnd_class").contains("Sorcerer"))
+            {
+                ImageView image = new ImageView(context);
+                image.setBackgroundResource(R.drawable.ic_class_sorcerer);
+                holder.classIconsLayout.addView(image);
+            }
+            if(spell.getString("dnd_class").contains("Warlock"))
+            {
+                ImageView image = new ImageView(context);
+                image.setBackgroundResource(R.drawable.ic_class_warlock);
+                holder.classIconsLayout.addView(image);
+            }
+            if(spell.getString("dnd_class").contains("Wizard"))
+            {
+                ImageView image = new ImageView(context);
+                image.setBackgroundResource(R.drawable.ic_class_wizard);
+                holder.classIconsLayout.addView(image);
+            }
 
             switch(spell.getString("school"))
             {
@@ -130,13 +185,14 @@ public class MainRecyclerView extends RecyclerView.Adapter<MainRecyclerView.View
         TextView cardTitle;
         TextView cardClass;
         TextView cardLevel;
+        LinearLayout classIconsLayout;
 
         ViewHolder(View itemView) {
             super(itemView);
             card = itemView.findViewById(R.id.card);
             cardTitle = itemView.findViewById(R.id.cardTitle);
-            cardClass = itemView.findViewById(R.id.cardClass);
             cardLevel = itemView.findViewById(R.id.cardLevel);
+            classIconsLayout = itemView.findViewById(R.id.classIconsLayout);
 
             itemView.setOnClickListener(this);
         }

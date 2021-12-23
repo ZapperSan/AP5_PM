@@ -5,4 +5,8 @@
         <item name="subtitleTextStyle">?attr/textAppearanceSubtitle1</item>
         <item name="background">@color/material_grey_900</item>
     </style>
+
+    <style name="Theme.ApiApp.Launcher">
+        <item name="android:windowBackground">@drawable/splashcreen_layer_list</item>
+    </style>
 </resources>

@@ -18,5 +18,4 @@
         <item name="actionModeCloseDrawable">@drawable/ic_arrow_back_white_24dp</item>
         <item name="actionBarTheme">@style/ThemeOverlay.MaterialComponents.Dark.ActionBar</item>
     </style>
-
 </resources>

@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -48,7 +50,6 @@ public class FilterActivity extends AppCompatActivity {
         classInput = (TextInputEditText)findViewById(R.id.classInput);
         concentrationInput = (SwitchMaterial)findViewById(R.id.concentrationSwitch);
         ritualInput = (SwitchMaterial)findViewById(R.id.ritualSwitch);
-
 
         ab.setDisplayHomeAsUpEnabled(true);
     }

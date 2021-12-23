@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements MainRecyclerView.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.Theme_ApiApp);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 

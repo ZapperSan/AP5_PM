@@ -62,6 +62,7 @@
                 android:layout_marginBottom="15dp"
                 android:layout_weight="1"
                 android:hint="@string/spell_level"
+
                 app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
