@@ -6,6 +6,7 @@ import androidx.appcompat.view.menu.ActionMenuItemView;
 import androidx.appcompat.view.menu.MenuView;
 import androidx.appcompat.widget.ActionMenuView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.splashscreen.SplashScreen;
 import androidx.core.view.MenuCompat;
 import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements MainRecyclerView.
     Context context;
     final static String appFileName = "api.json";
     final static String appDirName = "/appDir/";
-    final static String appDirPath = Environment.getExternalStorageDirectory().getAbsolutePath() + appDirName;
+    //final static String appDirPath = Environment.getExternalStorageDirectory().getAbsolutePath() + appDirName;
 
     static JSONArray results;
 
@@ -67,8 +68,8 @@ public class MainActivity extends AppCompatActivity implements MainRecyclerView.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.Theme_ApiApp);
         super.onCreate(savedInstanceState);
+        SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
         setContentView(R.layout.activity_main);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.topToolbar);
@@ -78,44 +79,58 @@ public class MainActivity extends AppCompatActivity implements MainRecyclerView.
 
         readFromExternalMemory();
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        recycler = new MainRecyclerView(context, results);
-        recyclerView.setAdapter(recycler);
+        if(results == null)
+        {
+            Log.d("Create", "No results! Skipping recycler layout!\n");
+        } else
+        {
+            recyclerView.setLayoutManager(new LinearLayoutManager(context));
+            recycler = new MainRecyclerView(context, results);
+            recyclerView.setAdapter(recycler);
+        }
+
         // set up the RecyclerView
     }
 
     private void tryBundle() {
         if (getIntent().getExtras() != null) {
             Bundle b = getIntent().getExtras();
-
+            Log.d("Bundle", "Bundle results:\n"
+                    +"\nname: "+ b.getString("name")
+                    +"\nlevel: "+ b.getString("level")
+                    +"\nschool: "+ b.getString("school")
+                    +"\nrange: "+ b.getString("range")
+                    +"\ndnd_class: "+ b.getString("dnd_class")
+                    +"\nritual: "+ b.getString("ritual")
+                    +"\nconcentration: "+ b.getString("concentration"));
             try {
                 JSONArray filteredJSON = new JSONArray();
                 for (int i = 0; i < results.length(); i++) {
                     boolean isHit = true;
-                    if (b.getString("name") != "") {
+                    if (!(b.getString("name").equals(""))) {
                         if (results.getJSONObject(i).getString("slug").contains(b.getString("name")))
                             isHit = true;
                         else isHit = false;
                     }
-                    if (b.getString("level") != "") {
+                    if (!(b.getString("level").equals(""))) {
                         if (results.getJSONObject(i).getString("level").contains(b.getString("level"))
                             && isHit==true)
                             isHit = true;
                         else isHit = false;
                     }
-                    if (b.getString("school") != "") {
+                    if (!(b.getString("school").equals(""))) {
                         if (results.getJSONObject(i).getString("school").contains(b.getString("school"))
                                 && isHit==true)
                             isHit = true;
                         else isHit = false;
                     }
-                    if (b.getString("range") != "") {
+                    if (!(b.getString("range").equals(""))) {
                         if (results.getJSONObject(i).getString("range").contains(b.getString("range"))
                                 && isHit==true)
                             isHit = true;
                         else isHit = false;
                     }
-                    if (b.getString("dnd_class") != "") {
+                    if (!(b.getString("dnd_class").equals(""))) {
                         if (results.getJSONObject(i).getString("dnd_class").contains(b.getString("dnd_class"))
                                 && isHit==true)
                             isHit = true;
@@ -192,9 +207,9 @@ public class MainActivity extends AppCompatActivity implements MainRecyclerView.
 
     private boolean readFromExternalMemory() {
         try {
-            File appFile = new File(appDirPath + appFileName);
+            File appFile = new File(getExternalFilesDir(null).getAbsolutePath() + appFileName);
             if (appFile.exists()) {
-                FileInputStream fis = new FileInputStream(new File(appDirPath + appFileName));
+                FileInputStream fis = new FileInputStream(new File( getExternalFilesDir(null).getAbsolutePath() + appFileName));
                 InputStreamReader isr = new InputStreamReader(fis);
                 BufferedReader bufferedReader = new BufferedReader(isr);
 
@@ -239,7 +254,7 @@ public class MainActivity extends AppCompatActivity implements MainRecyclerView.
 
     private void prepareExternalMemory() {
         try {
-            File appFile = new File(appDirPath + appFileName);
+            File appFile = new File(getExternalFilesDir(null).getAbsolutePath() + appFileName);
             boolean isDone = appFile.delete();
             if (isDone) Log.d("PrepareExternalMemory()", "File successfuly deleted! \n");
 
@@ -249,9 +264,9 @@ public class MainActivity extends AppCompatActivity implements MainRecyclerView.
 
     private boolean writeToExternalMemory(String dataToWrite) {
         try {
-            File appDir = new File(appDirPath);
+            File appDir = new File(getExternalFilesDir(null).getAbsolutePath());
             appDir.mkdir();
-            FileOutputStream fos = new FileOutputStream(appDirPath + appFileName, true);
+            FileOutputStream fos = new FileOutputStream(getExternalFilesDir(null).getAbsolutePath() + appFileName, true);
             fos.write(dataToWrite.getBytes());
             fos.flush();
             fos.close();

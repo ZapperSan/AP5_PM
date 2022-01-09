@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -26,10 +27,10 @@ import org.json.JSONObject;
 public class FilterActivity extends AppCompatActivity {
 
     TextInputEditText nameInput;
-    TextInputEditText levelInput;
-    TextInputEditText schoolInput;
-    TextInputEditText rangeInput;
-    TextInputEditText classInput;
+    AutoCompleteTextView levelInput;
+    AutoCompleteTextView schoolInput;
+    AutoCompleteTextView rangeInput;
+    AutoCompleteTextView classInput;
     SwitchMaterial concentrationInput;
     SwitchMaterial ritualInput;
 
@@ -44,12 +45,37 @@ public class FilterActivity extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
 
         nameInput = (TextInputEditText)findViewById(R.id.nameInput);
-        levelInput = (TextInputEditText)findViewById(R.id.levelInput);
-        schoolInput = (TextInputEditText)findViewById(R.id.schoolInput);
-        rangeInput = (TextInputEditText)findViewById(R.id.rangeInput);
-        classInput = (TextInputEditText)findViewById(R.id.classInput);
+        levelInput = (AutoCompleteTextView)findViewById(R.id.levelInput);
+        schoolInput = (AutoCompleteTextView)findViewById(R.id.schoolInput);
+        rangeInput = (AutoCompleteTextView)findViewById(R.id.rangeInput);
+        classInput = (AutoCompleteTextView)findViewById(R.id.classInput);
         concentrationInput = (SwitchMaterial)findViewById(R.id.concentrationSwitch);
         ritualInput = (SwitchMaterial)findViewById(R.id.ritualSwitch);
+
+        // Level adapter
+        String[] levels = {"","Cantrip", "1st","2nd","3rd","4th","5th","6th","7th","8th","9th"};
+        ArrayAdapter<String>levelAdapter = new ArrayAdapter<String>(FilterActivity.this,
+                android.R.layout.simple_spinner_item,levels);
+        levelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        levelInput.setAdapter(levelAdapter);
+        // School adapter
+        String[] schools = {"","Abjuration", "Conjuration","Divination","Enchantment","Evocation","Illusion","Necromancy","Transmutation"};
+        ArrayAdapter<String>schoolAdapter = new ArrayAdapter<String>(FilterActivity.this,
+                android.R.layout.simple_spinner_item,schools);
+        schoolAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        schoolInput.setAdapter(schoolAdapter);
+        // Range adapter
+        String[] ranges = {"","Self", "Touch","5","10","15","20","30","60","90"};
+        ArrayAdapter<String>rangeAdapter = new ArrayAdapter<String>(FilterActivity.this,
+                android.R.layout.simple_spinner_item,ranges);
+        schoolAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        rangeInput.setAdapter(rangeAdapter);
+        // Class adapter
+        String[] classes = {"","Bard", "Cleric","Druid","Paladin","Ranger","Ritual Caster","Sorcerer","Warlock","Wizard"};
+        ArrayAdapter<String>classAdapter = new ArrayAdapter<String>(FilterActivity.this,
+                android.R.layout.simple_spinner_item,classes);
+        schoolAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        classInput.setAdapter(classAdapter);
 
         ab.setDisplayHomeAsUpEnabled(true);
     }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ApiApp</string>
+    <string name="app_name">Open5e Spells</string>
     <string name="main_title">Open5e - SpellList</string>
     <string name="filter_title">Filters</string>
     <string name="detail_title">Detail</string>
